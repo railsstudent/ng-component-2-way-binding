@@ -1,29 +1,40 @@
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Guest } from '../interfaces/guest.interface';
+import { INDUSTRIES } from './constants/industry.constant';
 
 @Component({
   selector: 'app-card-form',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgFor],
   template: `
     <form [formGroup]="form">
       <div>
-        <label for="name">Name: </label>
-        <input type="text" id="name" name="name" formControlName="name" />
+        <label for="name">Name: 
+          <input type="text" id="name" name="name" formControlName="name" />
+        </label>
       </div>
       <div>
-        <label for="company">Company: </label>
-        <input type="text" id="company" name="company" formControlName="company"  />
+        <label for="company">Company: 
+          <input type="text" id="company" name="company" formControlName="company"  />
+        </label>
       </div>
       <div>
-        <label for="industry">Industry: </label>
-        <input type="text" id="industry" name="industry" formControlName="industry"  />
+        <label for="industry">Industry: 
+          <select formControlName="industry">
+            <option value="">----select---</option>
+            <option *ngFor="let industry of industries; trackBy: trackByFunc">
+              {{industry}}
+            </option>
+          </select>
+        </label>
       </div>
       <div>
-        <label for="title">Title: </label>
-        <input type="text" id="title" name="title" formControlName="title"  />
+        <label for="title">Title: 
+          <input type="text" id="title" name="title" formControlName="title"  />
+        </label>
       </div>
     </form>
   `,
@@ -45,6 +56,7 @@ import { Guest } from '../interfaces/guest.interface';
 
     input {
       padding: 0.25rem;
+      width: 300px;
     }
   `],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -56,6 +68,8 @@ export class CardFormComponent {
     industry: new FormControl('', { nonNullable: true }),
     title: new FormControl('', { nonNullable: true }),    
   })
+
+  industries = INDUSTRIES;
 
   @Input()  guest!: Guest;
   @Output() guestChange = new EventEmitter<Guest>();
@@ -72,5 +86,9 @@ export class CardFormComponent {
       };
       this.guestChange.emit(this.guest);
     })
+  }
+
+  trackByFunc(index: number) {
+    return index;
   }
 }
