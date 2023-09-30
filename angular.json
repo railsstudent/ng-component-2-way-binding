@@ -55,7 +55,8 @@
                   "maximumError": "4kb"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "baseHref": "https://railsstudent.github.io/ng-component-2-way-binding/"
             },
             "development": {
               "buildOptimizer": false,
