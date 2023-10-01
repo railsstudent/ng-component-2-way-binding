@@ -44,6 +44,7 @@ import { INDUSTRIES } from './constants/industry.constant';
     }
 
     form {
+      max-width: 450px;
       margin: 1rem;
       border: 1px solid black;
       border-radius: 10px;
@@ -62,6 +63,9 @@ import { INDUSTRIES } from './constants/industry.constant';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardFormComponent {
+  @Input()  guest!: Guest;
+  @Output() guestChange = new EventEmitter<Guest>();
+
   form = new FormGroup({
     name: new FormControl('', { nonNullable: true }),
     company: new FormControl('', { nonNullable: true }),
@@ -71,21 +75,18 @@ export class CardFormComponent {
 
   industries = INDUSTRIES;
 
-  @Input()  guest!: Guest;
-  @Output() guestChange = new EventEmitter<Guest>();
-
   constructor() {
     this.form.valueChanges.pipe(takeUntilDestroyed())
-    .subscribe((formValues) => {
-      const { name = '', company = '', industry = '', title = '' } = formValues;
-      this.guest = { 
-        name,
-        company,
-        industry,
-        title,        
-      };
-      this.guestChange.emit(this.guest);
-    })
+      .subscribe((formValues) => {
+        const { name = '', company = '', industry = '', title = '' } = formValues;
+        this.guest = {
+          name,
+          company,
+          industry,
+          title,  
+        };
+        this.guestChange.emit(this.guest);
+      });
   }
 
   trackByFunc(index: number) {
