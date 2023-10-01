@@ -33,11 +33,7 @@ import { Guest } from '../interfaces/guest.interface';
   styles: [`
     :host {
       display: block;
-    }
-
-    :host {
-      display: block;
-    }
+    }   
 
     h3 {
       margin-bottom: 0.75rem;
