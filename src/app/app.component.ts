@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CardFormComponent } from './card-form/card-form.component';
 import { GuestCardComponent } from './guest-card/guest-card.component';
 import { Guest } from './interfaces/guest.interface';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -29,5 +30,9 @@ export class AppComponent {
     company: '',
     industry: '',
     title: '',
+  }
+
+  constructor(titleService: Title) {
+    titleService.setTitle('2-way binding');
   }
 }
