@@ -9,7 +9,7 @@ import { Title } from '@angular/platform-browser';
   standalone: true,
   imports: [CardFormComponent, GuestCardComponent],
   template: ` 
-    <h2>2-way binding of component</h2>
+    <h2>2-way data binding of component</h2>
     <app-guest-card [guest]="guest" />
     <app-card-form [(guest)]="guest" />
   `,
